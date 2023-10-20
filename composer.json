@@ -1,0 +1,21 @@
+{
+  "name": "dev/laralite",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "omar.abdulwahhab",
+      "email": "omarabdelwahhabkishk2000@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/",
+      "laralite\\framework\\": "framework/"
+    }
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^6.3"
+  }
+}
