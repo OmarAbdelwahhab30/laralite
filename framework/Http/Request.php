@@ -1,6 +1,6 @@
 <?php
 
-namespace laralite\framework\Http;
+namespace Laralite\Framework\Http;
 
 class Request
 {
@@ -21,4 +21,13 @@ class Request
         return new static($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
     }
 
+    public function getUrl()
+    {
+        return strtok($this->server['REQUEST_URI'],"?");
+    }
+
+    public function getMethod()
+    {
+        return $this->server['REQUEST_METHOD'];
+    }
 }
