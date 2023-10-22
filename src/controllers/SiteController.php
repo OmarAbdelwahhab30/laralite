@@ -5,9 +5,9 @@ namespace App\controllers;
 class SiteController
 {
 
-    public function index($id)
+    public function index()
     {
-        echo "This Post id is ".$id;
+        echo "Hello World";
     }
 
 }
