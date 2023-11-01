@@ -1,0 +1,23 @@
+{
+  "name": "dev/laralite",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "omar.abdulwahhab",
+      "email": "omarabdelwahhabkishk2000@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Laralite\\Framework\\": "src/"
+    }
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^6.3"
+  },
+  "require": {
+    "nikic/fast-route": "^1.3"
+  }
+}
