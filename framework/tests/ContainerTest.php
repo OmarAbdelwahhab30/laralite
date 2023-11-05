@@ -7,6 +7,7 @@ use Laralite\Framework\Container\ContainerException;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use ReflectionException;
 
 class ContainerTest extends TestCase
 {
@@ -45,5 +46,23 @@ class ContainerTest extends TestCase
 
         $this->assertTrue($container->has("dependant-class"));
         $this->assertFalse($container->has("non-existing-class"));
+    }
+
+    /**
+     * @throws ContainerException
+     * @throws ReflectionException
+     */
+    public function test_dependency_of_other_dependencies(){
+        $container =  new Container();
+
+        //$container->add("dependent-service",DependantClass::class);
+
+        $object = $container->get(DependantClass::class);
+
+        $dependencyClass = $object->getDependency();
+
+        $this->assertInstanceOf(DependencyClass::class,$dependencyClass);
+
+        $this->assertInstanceOf(SubDependencyClass::class,$dependencyClass->getDependency());
     }
 }
