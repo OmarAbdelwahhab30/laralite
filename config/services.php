@@ -10,7 +10,7 @@ $routes = include BASE_PATH.DIRECTORY_SEPARATOR.'routes'.DIRECTORY_SEPARATOR.'we
 
 $container = new Container();
 
-$container->delegate(new \League\Container\ReflectionContainer());
+$container->delegate(new \League\Container\ReflectionContainer(true));
 
 $container->add(RouterInterface::class,
     Router::class);
