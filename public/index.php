@@ -2,13 +2,19 @@
 
 use Laralite\Framework\Http\Kernel;
 use Laralite\Framework\Http\Request;
-use Laralite\Framework\Router\Router;
 
-require_once dirname(__DIR__).DIRECTORY_SEPARATOR."vendor".DIRECTORY_SEPARATOR."autoload.php";
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "framework" . DIRECTORY_SEPARATOR . "config" .DIRECTORY_SEPARATOR."constants.php";
+
+define("BASE_PATH",dirname(__DIR__));
+
+require_once BASE_PATH.DIRECTORY_SEPARATOR."vendor".DIRECTORY_SEPARATOR."autoload.php";
+
+require_once BASE_PATH . DIRECTORY_SEPARATOR . "framework" . DIRECTORY_SEPARATOR ."src".DIRECTORY_SEPARATOR.
+    "config" .DIRECTORY_SEPARATOR."constants.php";
+
+$container = require BASE_PATH.DIRECTORY_SEPARATOR."config".DIRECTORY_SEPARATOR."services.php";
 
 $request = Request::createFromGlobals();
-$router = new Router();
-$kernel = new Kernel($router);
-$response = $kernel->handle($request);
+
+$response = $container->get(Kernel::class)->handle($request);
+
 $response->send();

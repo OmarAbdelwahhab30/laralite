@@ -6,7 +6,7 @@ class DependantClass
 {
 
     public DependencyClass $dependency;
-    public function __construct(DependencyClass $dependency,int $id)
+    public function __construct(DependencyClass $dependency)
     {
         $this->dependency = $dependency;
     }

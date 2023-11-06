@@ -11,6 +11,7 @@ class Container implements ContainerInterface
 
     /**
      * @throws ContainerException
+     * @throws ReflectionException
      */
     public function add(string $id, string|object $concrete = null)
     {
@@ -21,6 +22,7 @@ class Container implements ContainerInterface
             $concrete = $id;
         }
         $this->services[$id] = $concrete;
+        $this->resolve($this->services[$id]);
     }
 
     /**
