@@ -6,27 +6,44 @@ use FastRoute\Dispatcher;
 use Laralite\Framework\Http\HttpException;
 use Laralite\Framework\Http\HttpRequestMethodException;
 use Laralite\Framework\Http\Request;
+use Psr\Container\ContainerInterface;
 
 class Router implements RouterInterface
 {
 
-    public function dispatch(Request $request)
-    {
+    public array $routes = [];
 
+    /**
+     * @throws HttpRequestMethodException
+     * @throws HttpException
+     */
+    public function dispatch(Request $request,ContainerInterface $container): array
+    {
         $routeInfo = $this->extractRouteInfo($request);
         [$handler, $vars] = $routeInfo;
         if (is_array($handler)) {
-            [$controller, $method] = $handler;
-            $handler = [new $controller, $method];
+
+            [$controllerID, $method] = $handler;
+            $controller = $container->get($controllerID);
+            $handler = [$controller, $method];
         }
         return [$handler, $vars];
     }
 
+    public function setRoutes(array $routes)
+    {
+        $this->routes = $routes;
+    }
+
+    /**
+     * @throws HttpRequestMethodException
+     * @throws HttpException
+     */
     private function extractRouteInfo(Request $request)
     {
-        $routes = include ROUTES_PATH . "web.php";
-        $dispatcher = \FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $r) use ($routes) {
-            foreach ($routes as $route) {
+
+        $dispatcher = \FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $r) {
+            foreach ($this->routes as $route) {
                 $r->addRoute(...$route);
             }
         });
