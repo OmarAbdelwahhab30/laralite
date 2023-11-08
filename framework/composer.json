@@ -14,8 +14,6 @@
       "Laralite\\Framework\\": "src/"
     }
   },
-
-
   "autoload-dev": {
     "psr-4": {
       "Laralite\\Framework\\Tests\\": "tests/"
@@ -29,6 +27,7 @@
     "nikic/fast-route": "^1.3",
     "psr/container": "^2.0",
     "league/container": "^4.0.0",
-    "symfony/dotenv": "^6.3"
+    "symfony/dotenv": "^6.3",
+    "twig/twig": "2.*"
   }
 }

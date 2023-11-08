@@ -2,9 +2,10 @@
 
 namespace App\controllers;
 
+use Laralite\Framework\Controllers\AbstractController;
 use Laralite\Framework\Http\Response;
 
-class SiteController
+class SiteController extends AbstractController
 {
 
     public HomeController $obj;
@@ -15,9 +16,7 @@ class SiteController
     }
     public function index()
     {
-        $content = "Hello {$this->obj->name}";
-
-        return new Response($content);
+        return $this->render("first.html.twig");
     }
 
 }

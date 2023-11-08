@@ -19,4 +19,9 @@ class Response
         echo $this->content;
     }
 
+    public function setContent($content): void
+    {
+        $this->content = $content;
+    }
+
 }
