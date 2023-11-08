@@ -10,4 +10,6 @@ return [
     }],
 
     ["GET","/post/{id}",[\App\controllers\HomeController::class,"index"]],
+
+    ["GET","/createPost",[\App\controllers\PostsController::class,"create"]]
 ];
