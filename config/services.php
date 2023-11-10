@@ -1,6 +1,8 @@
 <?php
 
+use Doctrine\DBAL\Connection;
 use Laralite\Framework\Controllers\AbstractController;
+use Laralite\Framework\dbal\ConnectionFactory;
 use Laralite\Framework\Http\Kernel;
 use Laralite\Framework\Router\Router;
 use Laralite\Framework\Router\RouterInterface;
@@ -21,6 +23,9 @@ $dotEnv->load(dirname(__DIR__) . DIRECTORY_SEPARATOR . ".env");
 $APP_ENV = $_SERVER['APP_ENV'];
 
 $templatesPath = BASE_PATH . DIRECTORY_SEPARATOR . 'templates';
+
+$dbPath = 'sqlite:///' . BASE_PATH . DIRECTORY_SEPARATOR .'var'.DIRECTORY_SEPARATOR.'db.sqlite';
+
 
 $container = new Container();
 
@@ -48,5 +53,14 @@ $container->add(AbstractController::class);
 
 $container->inflector(AbstractController::class)
     ->invokeMethod('setContainer', [$container]);
+
+$container->add(ConnectionFactory::class)
+    ->addArguments([
+        new StringArgument($dbPath)
+    ]);
+
+$container->addShared(Connection::class, function () use ($container): Connection {
+    return $container->get(ConnectionFactory::class)->create();
+});
 
 return $container;
