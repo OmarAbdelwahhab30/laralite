@@ -10,4 +10,4 @@ return new class{
     public function down(){
         return $this . " DOWN FUNCTION";
     }
-}
+};
