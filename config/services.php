@@ -1,6 +1,7 @@
 <?php
 
 use Doctrine\DBAL\Connection;
+use Laralite\Framework\Console\Application;
 use Laralite\Framework\Controllers\AbstractController;
 use Laralite\Framework\dbal\ConnectionFactory;
 use Laralite\Framework\Http\Kernel;
@@ -27,7 +28,13 @@ $templatesPath = BASE_PATH . DIRECTORY_SEPARATOR . 'templates';
 $dbPath = 'sqlite:///' . BASE_PATH . DIRECTORY_SEPARATOR .'var'.DIRECTORY_SEPARATOR.'db.sqlite';
 
 
+
 $container = new Container();
+
+$container->add("commands-base-namespace",
+    new StringArgument("Laralite\\Framework\\Console\\Command\\"),
+);
+
 
 $container->delegate(new ReflectionContainer(true));
 
@@ -63,4 +70,9 @@ $container->addShared(Connection::class, function () use ($container): Connectio
     return $container->get(ConnectionFactory::class)->create();
 });
 
+$container->add(\Laralite\Framework\Console\Kernel::class)
+    ->addArguments([$container,Application::class]);
+
+$container->add(Application::class)
+    ->addArgument($container);
 return $container;
