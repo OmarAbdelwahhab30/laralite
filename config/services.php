@@ -2,6 +2,7 @@
 
 use Doctrine\DBAL\Connection;
 use Laralite\Framework\Console\Application;
+use Laralite\Framework\Console\Command\MigrateDatabase;
 use Laralite\Framework\Controllers\AbstractController;
 use Laralite\Framework\dbal\ConnectionFactory;
 use Laralite\Framework\Http\Kernel;
@@ -75,4 +76,11 @@ $container->add(\Laralite\Framework\Console\Kernel::class)
 
 $container->add(Application::class)
     ->addArgument($container);
+
+$container->add("migrate",
+    MigrateDatabase::class)
+    ->addArguments([
+        Connection::class,
+        BASE_PATH.DIRECTORY_SEPARATOR."migrations".DIRECTORY_SEPARATOR
+    ]);
 return $container;
